@@ -1,0 +1,116 @@
+body{
+  margin:0;
+  overflow:hidden;
+  font-family:sans-serif;
+  background-color:#111;
+}
+
+/* ---------- Main Menu ---------- */
+#menu{
+  position:absolute;
+  top:10vh;
+  left:5vw;
+  width:90vw;
+  text-align:center;
+}
+#menu button{
+  font-size:2.5vh;
+  padding:1.2vh 3vw;
+  margin:2vh;
+  cursor:pointer;
+}
+
+/* ---------- WebGL Canvas ---------- */
+canvas{
+  width:50vw;
+  height:50vh;
+  display:block;
+}
+
+/* ---------- Garage UI ---------- */
+.garage-ui{
+  position:absolute;
+  top:10vh;
+  left:2vw;
+  display:flex;
+  flex-direction:column;
+  gap:2vh;
+  z-index:2;
+}
+.garage-ui img{
+  top:5vh;
+  width:4vw;
+  height:10vh;
+  cursor:pointer;
+  transition:transform 0.2s ease;
+  object-fit:contain;
+}
+.garage-ui img:hover{
+  transform:scale(1.1);
+}
+
+/* ---------- Race Overlay ---------- */
+#raceOverlay{
+  display:none;
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:rgba(0,0,0,0.8);
+  color:#fff;
+  padding:2vh 2vw;
+  border-radius:1vh;
+  text-align:center;
+  z-index:1000;
+  min-width:20vw;
+}
+#raceOverlay.show{display:block;}
+#raceOverlay h1{
+  margin:0 0 2vh;
+  font-size:4vh;
+}
+#raceOverlay p{
+  margin:0;
+  font-size:2.5vh;
+}
+
+/* ---------- Engine HUD (RPM, gear, etc.) ---------- */
+#hud{
+  position:fixed;
+  display: none;
+  top:2vh;
+  left:2vw;
+  padding:1vh 2vw;
+  font-family:ui-monospace,monospace;
+  font-size:2vh;
+  color:#eee;
+  background:rgba(0,0,0,0.45);
+  border-radius:1vh;
+  pointer-events:none;
+}
+.hud-row + .hud-row{margin-top:0.5vh;}
+
+.hud-row.rpm::after{
+  content:"";
+  display:block;
+  height:0.6vh;
+  margin-top:0.6vh;
+  background:#3aff5a;
+  width:var(--rpm-bar,0%);
+  transition:width 80ms linear;
+}
+
+/* Colour-code gears */
+#hud .gear[data-gear="8"]{color:#ff6655;}
+
+/* ---------- Lap Timer ---------- */
+.lapCur,.lapBest{
+  padding:0.5vh 1vw;
+  background:rgba(0,0,0,0.35);
+  border-radius:1vh;
+  margin-bottom:0.5vh;
+  text-align:right;
+  transition:background 0.25s;
+}
+.lapCur.flashGood{background:#007d3c;}
+.lapCur.flashBad{background:#751400;}
