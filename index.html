@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>F1 Racing Game</title>
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+  <div id="menu">
+    <h1>F1 Racing Game</h1>
+    <button id="customizeBtn">Customize</button>
+    <button id="startRaceBtn">Start Race</button>
+  </div>
+  <div id="raceOverlay"></div>
+  <div id="hud">
+    <div class="hud-row gear">Gear: 1</div>
+    <div class="hud-row rpm" >RPM : 0%</div>
+    <div class="hud-row speed">Speed: 0 km/h</div>  
+    <div id ="lapCur" class="lapCur">Lap 0:00.000</div>   <!-- updated each frame -->
+    <div id="lapBest" class="lapBest">Best --:--.---</div>
+  </div>
+
+  <canvas id="gameCanvas" style="display: none;"></canvas>
+  
+  <script src="./src/main.js" type="module"></script>
+</body>
+</html>
