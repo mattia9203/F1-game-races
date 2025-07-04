@@ -537,7 +537,14 @@ function detachFlapAt(car, dropPos){
 }
 
 function endRace(){
-  if (gameOver) return;
+  if (gameOver){
+    const overlay = document.getElementById('raceOverlay');
+    overlay.innerHTML =
+    '<h1>Game Over</h1>' +
+    '<p>You go out of the track</p>';
+    overlay.classList.add('show');
+    return;
+  }
   gameOver = true;
   // freeze input & physics
   driveKeys.KeyW = driveKeys.KeyS = driveKeys.KeyA = driveKeys.KeyD = 0;
@@ -769,9 +776,16 @@ function animate() {
       hudRPM.style.setProperty('--rpm-bar', `${rpmPercent}%`);
       handleWallCollision(carModel, dt);
       animateWheels(carModel, dt);
+      for (let i=0; i < 4; i++){
+        if (carModel.userData.wheelOnTrack[i]){
+          gameOver = false;
+          break;}
+        gameOver = true;
+      }
     }else{
       hudSpeed.textContent = 'Speed : 0 km/h';
       updateAudio(physicsState.gear, physicsState.rpm, physicsState.velocity, driveKeys.KeyW);
+      endRace();
     }
 
     updateDebris(dt);            // always run so sparks & flap animate
