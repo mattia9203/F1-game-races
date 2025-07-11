@@ -34,7 +34,6 @@ const physicsConfig = {
 // Raycaster for ground detection
 const downRay = new THREE.Raycaster();
 const downDir = new THREE.Vector3(0, -1, 0);
-let carHalfHeight = 0;
 
 let scene, camera, renderer;
 let trackModel = null, carModel = null;
@@ -49,12 +48,7 @@ const SHADOW_R   = 24;
 const selectedTrackIndex = 0;
 const selectedTrack = tracks[selectedTrackIndex];  // [x, baseY, z]
 let wheels = [];
-const _tmp = new THREE.Vector3();
-const _tmp2 = new THREE.Vector3();
 
-const wallColliders = [];   // { box: THREE.Box3, mesh: THREE.Mesh }
-
-const _n  = new THREE.Vector3();
 
 const wallMeshes      = [];        // <Mesh> that really are barriers
 const tyreRaycaster   = new THREE.Raycaster();
@@ -858,12 +852,11 @@ function updateGroundSnapping() {
   let deepestPen = Infinity;   // penetration < 0 means wheel under the plane
   wheels.forEach(w => {
     const hubWorld = w.pivot.getWorldPosition(TMP);
-    const clearance  = ground.distanceToPoint(hubWorld) - wheelRadius;
+    const clearance  = ground.distanceToPoint(hubWorld);
     deepestPen = Math.min(deepestPen, clearance);
   });
   
-  const REST_OFFSET = 0.3;   // 3 cm – tune to taste
-
+  const REST_OFFSET = 0.12; 
   const dy = -deepestPen - REST_OFFSET;         // signed vertical delta
   carModel.position.y += dy;
 }
